@@ -9,14 +9,16 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
-    <canvas id="chess" width="450" height="450"></canvas>
     <div class="button-wrap">
-      <div class="humanCompBtn">
-        <a href="index.html"><button id="humanComp" type="button" class="btn btn-default">人机对战</button></a>
-      </div>
-      <div class="twoPlayerBtn">
-        <a href="twoPlayer.html"><button id="twoPlayer" type="button" class="btn btn-default">双人对战</button></a>
-      </div>
+      <a href="index.html"><button id="humanComp" type="button" class="btn btn-outline-secondary">人机对战</button></a>
+      <a href="twoPlayer.html"><button id="twoPlayer" type="button" class="btn btn-outline-secondary">双人对战</button></a>
+    </div>
+    <canvas id="chess" width="450" height="450"></canvas>
+    <div class="button-wrap1">
+      <p>&nbsp;当前：
+      <img id="currPlayer" src="img/black.png">
+      <button id="undoBtn" type="button" class="btn btn-outline-light btn-lg">悔棋</button>
+      <button type="button" class="btn btn-outline-light btn-lg" onclick="window.location.href=window.location">重新开始</button>
     </div>
     <script type="text/javascript" src="js/script.js"></script>
   </body>

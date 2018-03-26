@@ -63,7 +63,6 @@ for(var i=0; i < 11; i++){
     count++;
   }
 }
-console.log(count);
 
 for(var i=0; i<count; i++){
   blackWin[i] = 0;
@@ -75,22 +74,13 @@ var context = chess.getContext('2d');
 
 context.strokeStyle = "#BFBFBF";
 
-var logo = new Image();
-logo.src = "img/logo.png";
-logo.onload = function(){
-  context.drawImage(logo, 15,15,435,435);
-  drawChessBoard();
-}
-
-var drawChessBoard = function(){
-  for(var i=0; i<15; i++){
-    context.moveTo(15 + 30*i,15);
-    context.lineTo(15 + 30*i, 435);
-    context.stroke();
-    context.moveTo(15,30*i + 15);
-    context.lineTo(435, 30*i + 15);
-    context.stroke();
-  }
+for(var i=0; i<15; i++){
+  context.moveTo(15 + 30*i,15);
+  context.lineTo(15 + 30*i, 435);
+  context.stroke();
+  context.moveTo(15,30*i + 15);
+  context.lineTo(435, 30*i + 15);
+  context.stroke();
 }
 
 var oneStep = function(i, j, human){
@@ -125,7 +115,6 @@ chess.onclick = function(e){
   if(chessBoard[i][j] == 0){
     oneStep(j, i, player);
     chessBoard[i][j] = 1;
-    console.log("i = " + i + " j = " + j);
 
     for(var k=0; k<count; k++){
       if(wins[i][j][k]){ // 坐标 (i, j) 有可能赢

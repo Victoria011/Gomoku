@@ -7,11 +7,11 @@ var _whitei = 0, _whitej = 0; //记录白子下棋的坐标
 var wins = [];
 //赢法统计数组
 var blackWin = [];
-var undoBlackWin = [];
+var undoBlackWin = []; // 悔棋
 var whiteWin = [];
-var undoWhiteWin = [];
+var undoWhiteWin = []; // 悔棋
 
-// 初始化 chessBoard
+// 初始化棋盘
 for(var i=0; i<15; i++){
   chessBoard[i] = [];
   for(var j=0; j<15; j++){
@@ -76,12 +76,15 @@ for(var i=0; i<count; i++){
   undoWhiteWin[i] = 0;
 }
 
-var chess = document.getElementById('chess');
-var context = chess.getContext('2d');
+if(!document.getElementById('chess').getContext('2d')){
+  window.location.href="div.html";
+}
+var context = document.getElementById('chess').getContext('2d');
 var backbtn = document.getElementById("undoBtn");
 
 context.strokeStyle = "#BFBFBF";
 
+// 画棋盘
 for(var i=0; i<15; i++){
   context.moveTo(15 + 30*i,15);
   context.lineTo(15 + 30*i, 435);
@@ -91,9 +94,10 @@ for(var i=0; i<15; i++){
   context.stroke();
 }
 
+// 画子
 var oneStep = function(i, j, human){
   context.beginPath();
-  context.arc(15 + i*30, 15 + j*30, 13, 0, 2 * Math.PI);
+  context.arc(15 + i * 30, 15 + j * 30, 13, 0, 2 * Math.PI);
   context.closePath();
 
   var gradient = context.createRadialGradient(15+i*30+2, 15+j*30-2, 0,15+i*30+2, 15+j*30-2, 13);
@@ -107,6 +111,7 @@ var oneStep = function(i, j, human){
   context.fillStyle = gradient;
   context.fill();
 }
+
 // 销毁棋子
 var minusStep = function(i,j) {
   context.clearRect(i * 30, j * 30, 30, 30);
@@ -119,6 +124,7 @@ var minusStep = function(i,j) {
 
   context.stroke();
 }
+
 // 落子
 chess.onclick = function(e){
   if(gameOver){
@@ -133,7 +139,7 @@ chess.onclick = function(e){
   if(chessBoard[i][j] == 0){
     oneStep(j, i, player);
     if(player){
-      _blacki = i;
+      _blacki = i; // 记录悔棋坐标
       _blackj = j;
       chessBoard[i][j] = 1;
     }else{
@@ -168,6 +174,11 @@ chess.onclick = function(e){
       }
     }
     player = !player;
+    if(player){
+      document.getElementById('currPlayer').src="img/black.png";
+    }else{
+      document.getElementById('currPlayer').src="img/white.png";
+    }
   }
 }
 
